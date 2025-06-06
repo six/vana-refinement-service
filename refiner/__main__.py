@@ -71,7 +71,17 @@ class Refiner:
         # Set up logging with the provided configuration and directory.
         vana.logging(config=self.config, logging_dir=self.config.full_path)
 
-        self.wallet = vana.Wallet(config=self.config)
+               # Explicitly set wallet path, coldkey, and hotkey from env (with defaults)
+        wallet_path = os.getenv('VANA_WALLET_PATH', os.path.expanduser('~/.vana/wallets/refiner'))
+        wallet_name = os.getenv('VANA_WALLET_NAME', 'refiner')
+        hotkey_name = os.getenv('VANA_HOTKEY_NAME', 'refiner')
+
+        self.wallet = vana.Wallet(
+            config=self.config,
+            path=wallet_path,
+            name=wallet_name,
+            hotkey=hotkey_name
+        )
         self.chain_manager = vana.ChainManager(config=self.config)
         self.vana_client = vana.Client(config=self.config)
 

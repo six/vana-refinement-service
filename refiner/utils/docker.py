@@ -214,7 +214,7 @@ def run_signed_container(
         try:
             if output_volume:
                 vana.logging.info(f"Removing output volume: {output_volume_name}")
-                output_volume.remove(force=True)
+                #output_volume.remove(force=True)
         except docker.errors.NotFound:
              vana.logging.info(f"Output volume {output_volume_name} already removed during cleanup.")
         except Exception as e:
